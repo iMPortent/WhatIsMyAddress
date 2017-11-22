@@ -7,13 +7,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    EditText userEmail;
-    Button saveButton,nextButton;
-    SharedPreferences preferences;
-    SharedPreferences.Editor editor;
-    String key = "address_shared_preferences";
+    public static EditText userEmail;
+    public static Button saveButton,nextButton;
+    public static SharedPreferences preferences;
+    public static SharedPreferences.Editor editor;
+    public static String key = "address_shared_preferences";
+    public static String intentsKey = "fromRecycler";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +41,11 @@ public class MainActivity extends AppCompatActivity {
         Intent toRecycler = new Intent(this, RecyclerActivity.class);
         toRecycler.putExtra("sharedpref",key);
         startActivity(toRecycler);
+    }
+
+    public void takeToDisplay(View view) {
+        Intent intent = new Intent(this, DisplayActivity.class);
+        intent.putExtra(intentsKey,((TextView) view).getText());
+        startActivity(intent);
     }
 }
