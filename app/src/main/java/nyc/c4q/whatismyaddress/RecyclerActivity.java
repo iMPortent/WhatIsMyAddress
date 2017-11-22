@@ -30,7 +30,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
 
         Intent intent = getIntent();
-        String key = intent.getStringExtra("sharedpref");
+        String key = getIntent().getExtras().getString(Intent.EXTRA_TEXT);
         preferences = getSharedPreferences(key,MODE_PRIVATE);
 
        myMap = preferences.getAll();
@@ -49,7 +49,7 @@ public class RecyclerActivity extends AppCompatActivity {
 
     public void takeToDisplay(View view){
         Intent intent = new Intent(this, DisplayActivity.class);
-        intent.putExtra(intentsKey,((TextView) view).getText());
+        intent.putExtra(intent.EXTRA_TEXT,((TextView) view).getText());
         startActivity(intent);
     }
 
