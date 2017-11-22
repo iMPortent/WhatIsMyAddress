@@ -26,7 +26,7 @@ public class DisplayActivity extends AppCompatActivity{
         String x = getIntent().getExtras().getString(Intent.EXTRA_TEXT);
 
         theEmail.setText(x);
-        emailSize.setText(x.length());
+        emailSize.setText(String.valueOf(x.length()));
 
 
     }
