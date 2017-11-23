@@ -42,11 +42,12 @@ public class RecyclerActivity extends AppCompatActivity {
 
     }
 
-//    public void takeToDisplay(View view){
-//        Intent intent = new Intent(this, DisplayActivity.class);
-//        intent.putExtra(intent.EXTRA_TEXT,((TextView) view).getText());
-//        startActivity(intent);
-//    }
+    public void takeToDisplay(View view){
+        Intent intent = new Intent(this, DisplayActivity.class);
+        String selected = ((TextView) view ).getText().toString();
+        intent.putExtra(Intent.EXTRA_TEXT,selected);
+        startActivity(intent);
+    }
 
     public void loadList(){
         myMap = preferences.getAll();
