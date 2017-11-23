@@ -20,7 +20,7 @@ public class RecyclerActivity extends AppCompatActivity {
     Map<String, ?> myMap= new HashMap<>();
     ArrayList<Object>addresses = new ArrayList<>();
     RecyclerView recyclerView;
-    String intentsKey = "fromRecycler";
+    String intentsKey = MainActivity.intentsKey;
     SharedPreferences preferences;
 
     @Override
@@ -28,29 +28,32 @@ public class RecyclerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
 
+        preferences = getSharedPreferences(MainActivity.key,MODE_PRIVATE);
 
-        Intent intent = getIntent();
-        String key = getIntent().getExtras().getString(Intent.EXTRA_TEXT);
-        preferences = getSharedPreferences(key,MODE_PRIVATE);
 
-       myMap = preferences.getAll();
-       for(String x : myMap.keySet()){
-           addresses.add(myMap.get(x));
-       }
-
-       recyclerView = findViewById(R.id.recycler_holder);
+        recyclerView = findViewById(R.id.recycler_holder);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
+
+        loadList();
 
         MyAdapter adapter = new MyAdapter(addresses);
         recyclerView.setAdapter(adapter);
 
     }
 
-    public void takeToDisplay(View view){
-        Intent intent = new Intent(this, DisplayActivity.class);
-        intent.putExtra(intent.EXTRA_TEXT,((TextView) view).getText());
-        startActivity(intent);
+//    public void takeToDisplay(View view){
+//        Intent intent = new Intent(this, DisplayActivity.class);
+//        intent.putExtra(intent.EXTRA_TEXT,((TextView) view).getText());
+//        startActivity(intent);
+//    }
+
+    public void loadList(){
+        myMap = preferences.getAll();
+        for(String x : myMap.keySet()){
+            addresses.add(myMap.get(x));
+        }
+
     }
 
 }
