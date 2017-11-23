@@ -34,12 +34,14 @@ public class MainActivity extends AppCompatActivity {
     public void saveEmailAdd(View view){
         String emailAddress = userEmail.getText().toString();
         editor.putString(emailAddress,emailAddress);
+//        editor.commit();
         userEmail.setText("");
     }
 
     public void nextIntent(View view){
         Intent toRecycler = new Intent(this, RecyclerActivity.class);
         toRecycler.putExtra("sharedpref",key);
+        editor.commit();
         startActivity(toRecycler);
     }
 
