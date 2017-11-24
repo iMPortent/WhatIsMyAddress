@@ -1,4 +1,4 @@
-package nyc.c4q.whatismyaddress;
+package nyc.c4q.whatismyaddress.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -9,6 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
+import nyc.c4q.whatismyaddress.EmailAddress;
+import nyc.c4q.whatismyaddress.R;
+
 public class MainActivity extends AppCompatActivity {
     public static EditText userEmail;
     public static Button saveButton,nextButton;
@@ -16,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     public static SharedPreferences.Editor editor;
     public static String key = "address_shared_preferences";
     public static String intentsKey = "fromRecycler";
+    public static ArrayList<EmailAddress>allAddys = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void saveEmailAdd(View view){
-        String emailAddress = userEmail.getText().toString();
-        editor.putString(emailAddress,emailAddress);
-//        editor.commit();
+        EmailAddress emailAddress = new EmailAddress(userEmail.getText().toString());
+        allAddys.add(emailAddress);
+        editor.putString(emailAddress.getKey(),emailAddress.getKey());
         userEmail.setText("");
     }
 

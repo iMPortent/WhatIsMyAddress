@@ -1,4 +1,4 @@
-package nyc.c4q.whatismyaddress;
+package nyc.c4q.whatismyaddress.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,6 +12,9 @@ import android.widget.TextView;
 
 import java.util.*;
 
+import nyc.c4q.whatismyaddress.R;
+import nyc.c4q.whatismyaddress.controller.MyAdapter;
+
 /**
  * Created by MarckemX on 11/21/17.
  */
@@ -22,6 +25,7 @@ public class RecyclerActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     String intentsKey = MainActivity.intentsKey;
     SharedPreferences preferences;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,7 +56,8 @@ public class RecyclerActivity extends AppCompatActivity {
     public void loadList(){
         myMap = preferences.getAll();
         for(String x : myMap.keySet()){
-            addresses.add(myMap.get(x));
+            String[] splitStr = x.split(",");
+            addresses.add(splitStr[0]);
         }
 
     }
