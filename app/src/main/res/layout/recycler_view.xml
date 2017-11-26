@@ -5,9 +5,18 @@
     android:orientation="vertical"
     >
 
+    <Button
+        android:id="@+id/add_more"
+        android:text="Add More"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="goBack"/>
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+
 
 </LinearLayout>

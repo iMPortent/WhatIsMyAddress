@@ -30,6 +30,7 @@ public class EmailAddress {
         setKey();
     }
 
+
     public String getTheAddress(){
         return theAddress;
 
@@ -48,9 +49,9 @@ public class EmailAddress {
     }
 
     private void setKey(){
-        if(checkKey()){
+//        if(checkKey()){
             key = theAddress + ","  + createdAt;
-        }
+//        }
     }
 
     public String getKey(){

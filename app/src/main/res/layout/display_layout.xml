@@ -19,6 +19,13 @@
         android:text="date"/>
 
     <Button
+        android:id="@+id/dont_delete"
+        android:text="Back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="dontDelete"/>
+
+    <Button
         android:text="Delete"
         android:id="@+id/delete_email"
         android:layout_width="match_parent"

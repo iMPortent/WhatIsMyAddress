@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.*;
@@ -20,11 +21,11 @@ import nyc.c4q.whatismyaddress.controller.MyAdapter;
  */
 
 public class RecyclerActivity extends AppCompatActivity {
-    Map<String, ?> myMap= new HashMap<>();
-    ArrayList<Object>addresses = new ArrayList<>();
+    Map<String, ?> myMap;
+    ArrayList<Object>addresses;
     RecyclerView recyclerView;
-    String intentsKey = MainActivity.intentsKey;
     SharedPreferences preferences;
+    Button addMore;
 
 
     @Override
@@ -32,9 +33,27 @@ public class RecyclerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler_view);
 
+        setValues();
+        createRecyclerView();
+
+    }
+
+    public void setValues() {
+        addMore = findViewById(R.id.add_more);
+        myMap = new HashMap<>();
+        addresses = new ArrayList<>();
         preferences = getSharedPreferences(MainActivity.key,MODE_PRIVATE);
+    }
 
+    public void loadList(){
+        myMap = preferences.getAll();
+        for(String x : myMap.keySet()){
+            addresses.add(myMap.get(x));
+        }
 
+    }
+
+    public void createRecyclerView(){
         recyclerView = findViewById(R.id.recycler_holder);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(manager);
@@ -43,7 +62,6 @@ public class RecyclerActivity extends AppCompatActivity {
 
         MyAdapter adapter = new MyAdapter(addresses);
         recyclerView.setAdapter(adapter);
-
     }
 
     public void takeToDisplay(View view){
@@ -53,13 +71,9 @@ public class RecyclerActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loadList(){
-        myMap = preferences.getAll();
-        for(String x : myMap.keySet()){
-            String[] splitStr = x.split(",");
-            addresses.add(splitStr[0]);
-        }
-
+    public void goBack(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 
 }

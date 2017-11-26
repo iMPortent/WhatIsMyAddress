@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import nyc.c4q.whatismyaddress.EmailAddress;
 import nyc.c4q.whatismyaddress.R;
@@ -20,51 +21,47 @@ public class DisplayActivity extends AppCompatActivity{
 
     String email;
     TextView theEmail,dateTime;
-    Button deleteButton;
-    EmailAddress thisAddress;
-    String key;
-    SharedPreferences preferences;
+    Button back,deleteButton;
+    SharedPreferences preferences ;
     SharedPreferences.Editor editor;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display_layout);
 
-        key = MainActivity.key;
-        preferences = getSharedPreferences(key,MODE_PRIVATE);
-        editor = preferences.edit();
-
         theEmail = findViewById(R.id.the_email);
         dateTime = findViewById(R.id.created_time);
         deleteButton = findViewById(R.id.delete_email);
 
+        preferences = getSharedPreferences(MainActivity.key,MODE_PRIVATE);
+        editor = preferences.edit();
+
         email = getIntent().getExtras().getString(Intent.EXTRA_TEXT);
 
         theEmail.setText(email);
-        findClass();
-
-
 
 
     }
 
     public void delete(View view){
-        editor.remove(thisAddress.getKey());
-        Intent intent = new Intent(this, RecyclerActivity.class);
+        editor.remove(email);
         editor.commit();
-        startActivity(intent);
+        if(preferences.getAll().size()==0){
+            Intent intent = new Intent(this, MainActivity.class);
+            Toast.makeText(this, "No more addresses saved!",Toast.LENGTH_LONG);
+            startActivity(intent);
+
+        } else {
+            Intent intent = new Intent(this, RecyclerActivity.class);
+            startActivity(intent);
+        }
 
     }
 
-    public void findClass(){
-        for(int i = 0; i < MainActivity.allAddys.size();i++){
-            thisAddress = MainActivity.allAddys.get(i);
-            if(email==thisAddress.getTheAddress()){
-                dateTime.setText(String.valueOf(thisAddress.getTimeCreated()));
-            }
-        }
+    public void dontDelete(View view){
+        Intent intent = new Intent(this, RecyclerActivity.class);
+        startActivity(intent);
     }
 
 }
