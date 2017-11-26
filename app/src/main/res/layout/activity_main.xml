@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="nyc.c4q.whatismyaddress.MainActivity">
+    tools:context="nyc.c4q.whatismyaddress.activities.MainActivity">
 
     <EditText
         android:id="@+id/email_field"
